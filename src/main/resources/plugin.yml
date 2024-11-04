@@ -1,0 +1,6 @@
+name: SnowyTeams
+version: '1.0'
+main: dev.snowy.SnowyTeams
+api-version: '1.20'
+authors: ["SnowyEstudios"]
+description: The best teams plugin for minecraft

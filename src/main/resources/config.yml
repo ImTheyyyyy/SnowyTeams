@@ -7,3 +7,185 @@
 # ╚══════╝╚═╝  ╚═══╝ ╚═════╝  ╚══╝╚══╝    ╚═╝          ╚═╝   ╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝
 #
 
+prefix: "&#42D1B8&lTEAMS &7¦ &r"
+
+Storage:
+  type: YAML # Currently available: YAML and MYSQL
+  database:
+    host: localhost
+    port: 3306
+    database_name: snowy
+    user: root
+    password: password
+
+# Requirements System
+Requirements:
+  create:
+    enabled: true
+    type: "LEVEL" # Currently avaliable: MONEY (Vault) and LEVEL (Minecraft XP)
+    price: 10 # Money or Levels
+
+# Names blocked when creating a clan
+BlockedNames:
+  - "Snowy"
+
+# - This is used to limit the minimum and maximum name length a clan can have.
+minTeamLength: 3
+maxTeamLength: 15
+
+# - This option is used to set a cooldown for using the create clan command.
+createCooldown: 30
+
+# - This is used to limit the maximum amount of members each clan can have.
+# - Set -1 for unlimited max members.
+maxTeamMembers: 5
+
+# - The amount of points you get for killing another user.
+pointsPerKill: 5
+
+# - The amount of points that will be taken from you when a user in your clan dies.
+pointsPerDeath: 5
+
+## MESSAGES.YML
+
+Messages:
+  Kill: "&cYou have earned %points% points for killing %victim%." # Variables: %points%, %victim%
+  Death: "&cYour clan has lost 5 points due to your death." # Variables: %points%, %killer%
+  MaxMembers: "&cThe clan has reached the maximum member limit (%maxMembers%)." # Variables: %maxMembers%
+  consoleCommand: "&cThis command can only be used by players."
+  noPermissions: "&cYou do not have permission to use this command."
+  clan-not-found: "&cNo clan found with name: %args%" # Variables: %args%
+  no-members-damage: "&cYou cannot damage members of your clan."
+  reload-message: "&aThe configuration has been reloaded."
+
+  clanCommand:
+    correct-usage: "&cCorrect usage: /clan <subcommand>"
+    no-leader: "&cYou are not the leader of any clan."
+
+    disband-dissolved: "&cYou have dissolved the %clan% clan!" # Variables: %clan%
+
+    create:
+      correct-usage: "&cCorrect usage: /clan create <name>"
+      already-in-clan: "&cYou are already in a clan."
+      name-too-short: "&cThe clan name must be at least %minTeamLength% characters." # Variables: %minTeamLength%
+      name-too-long: "&cThe clan name cannot exceed %maxTeamLength% characters." # Variables: %maxTeamLength%
+      name-taken: "&cA clan with that name already exists."
+      success: "&aYou have created the clan %clan%!" # Variables: %clan%
+      cooldown: "&cYou must wait %time% seconds before using this command again." # Variables: %time%
+      requirement: "&cYou need %amount% levels to create a clan." # Variables: %amount%
+      blocked-name: "&cThis name is blocked, please use another one"
+
+    invite:
+      no-leader: "&cYou are not the leader of any clan."
+      correct-usage: "&cCorrect usage: /clan invite <user>"
+      max-members: "&cYour clan has reached the maximum number of members."
+      player-not-online: "&cThe player is not online."
+      self-invite: "&cYou cannot invite yourself."
+      already-in-clan: "&cThis player is already in a clan."
+      invitation-received: "&aYou have received an invitation to join the clan %clan%! Use /clan join %clan% to join. You have 1 minute to accept." # Variables: %clan%
+      invitation-sent: "&aInvitation sent to %target%." # Variables: %target%
+      invitation-expired: "&cThe invitation to the clan %clan% has expired." # Variables: %clan%
+
+    join:
+      correct-usage: "&cCorrect usage: /clan join <name>"
+      already-in-clan: "&cYou are already in a clan. You cannot join another."
+      no-invitation: "&cYou do not have an invitation to join that clan."
+      success: "&aYou have joined the clan %clan%! " # Variables: %clan%
+      member-joined: "&aUser %player% has joined the clan" # Variables: %clan%, %player%
+
+    kick:
+      not-leader: "&cYou are not the leader of any clan."
+      correct-usage: "&cCorrect usage: /clan kick <user>"
+      self-kick: "&cYou cannot kick yourself."
+      not-member: "&cPlayer %player% is not a member of your clan." # Variables: %player%
+      not-in-clan: "&cPlayer %player% is not in your clan." # Variables: %player%
+      success: "&aYou have kicked %player% from the clan %clan%!" # Variables: %player%, %clan%
+      expelled: "&cYou have been expelled from the clan %clan%." # Variables: %clan%
+
+    leave:
+      not-member: "&cYou are not a member of any clan."
+      leader-leave: "&cYou cannot leave the clan as a leader. Use /clan disband to dissolve it."
+      success: "&aYou have left the clan %clan%." # Variables: %clan%
+
+    rename:
+      not-leader: "&cYou are not the leader of any clan."
+      usage: "&cCorrect usage: /clan rename <newName>"
+      empty-name: "&cThe new name cannot be empty."
+      taken-name: "&cThe name %newName% is already in use by another clan." # Variables: %newName%
+      success: "&aThe clan has been renamed to %newName%!" # Variables: %newName%
+
+    description:
+      not-clan: "&cYou are not a member of any clan."
+      not-leader: "&cYou are not the leader of any clan."
+      usage: "&cCorrect usage: /clan description <description>"
+      success: "&aThe clan description has been updated to: %description%"
+
+    leader:
+      not-leader: "&cYou are not the leader of any clan."
+      usage: "&cCorrect usage: /clan leader <newLeader>"
+      not-member: "&cPlayer %newLeader% is not a member of your clan." # Variables: %newLeader%
+      success: "&aYou have transferred leadership to %newLeader%!" # Variables: %newLeader%
+      new-leader: "&aYou are now the leader of the clan %clanName%! " # Variables: %clanName%
+
+    chat:
+      not-member: "&cYou are not a member of any clan."
+      format: "&7[%clan_name%] &f%player_name%: &b%message%" # Variables: %clan_name%, %player_name%, %message%
+      left: "&cYou have left the clan chat."
+      joined: "&aYou are now in the clan chat."
+
+    pvp:
+      not-leader: "&cOnly the clan leader can use this command."
+      enabled: "&aYou have enabled PvP among clan members."
+      disabled: "&cYou have disabled PvP among clan members."
+
+    info:
+      usage: "&cCorrect usage: /clan info <Clan/Player>"
+      clanInfo:
+        - "&7Clan Information &e%clanName%&7:"
+        - "&7Leader: &e%leader%"
+        - "&7Points: &e%points%"
+        - "&7Description: &e%description%"
+        - "&7Members: &e%members%"
+      notFound: "&cNo clan found."
+
+    top:
+      title: "&aTop Clans:"
+      noClans: "&cNo clans available."
+      entry: "&7%rank%. &f%clanName% &7- Points: &f%points%"
+
+  clanAdminCommand:
+    correct-usage: "&cCorrect usage: /clanadmin <subcommand>"
+    scorecommand-correct-usage: "&cUsage: /clanadmin score <add|remove> <Clan> <amount>"
+
+    forcejoin-correct-usage: "&cUsage: /clanadmin forcejoin <Clan> <Player>"
+    forcejoin-player-in-clan: "&cPlayer %player% is already a member of clan %clan%." # Variables: %player%, %clan%
+    forcejoin-player-added: "&aPlayer %player% has been added to clan %clan%." # Variables: %player%, %clan%
+
+    forcerename-correct-usage: "&cUsage: /clanadmin forcerename <Clan> <NewName>"
+    forcerename-renamed: "&aThe clan %oldName% has been renamed to: %newName%" # Variables: %oldName%, %newName%
+
+    forceleader-correct-usage: "&cUsage: /clanadmin forceleader <Clan> <Player>"
+    forceleader-named: "&aPlayer %newLeader% has been appointed new leader of clan: %clanName%" # Variables: %newLeader%, %clanName%
+    forceleader-old-leader: "&aThe former leader %oldLeader% is now a member of the clan." # Variables: %oldLeader%
+    forceleader-not-member: "&cPlayer %player% is not a member of clan: %clan%." # Variables: %player%, %clan%
+
+    forcekick-correct-usage: "&cUsage: /clanadmin forcekick <Player>"
+    forcekick-kicked: "&aPlayer %player% has been kicked from clan: %clan%" # Variables: %player%, %clan%
+    forcekick-not-member: "&cPlayer %player% is not a member of clan: %clan%." # Variables: %player%, %clan%
+    forcekick-no-clan: "&cNo clan found for player: %player%." # Variables: %player%
+
+    forcedisband-correct-usage: "&cUsage: /clanadmin forcedisband <Clan>"
+    forcedisband-disbanded: "&aThe clan %clan% has been removed." # Variables: %clan%
+    forcedisband-not-found: "&cNo clan found with the name: %clan%." # Variables: %clan%
+
+    score-correct-usage: "&cUsage: /clanadmin score add <Clan> <amount>"
+    score-invalid-amount: "&cThe amount must be a valid number."
+    score-added: "&a%amount% points have been added to the clan: %clan%." # Variables: %amount%, %clan%
+
+    score-remove-correct-usage: "&cUsage: /clanadmin score remove <Clan> <amount>"
+    score-not-negative: "&cClan %clan% cannot have less than 0 points." # Variables: %clan%
+    score-below-zero: "&cCannot reduce points below 0. Current points: %currentPoints%." # Variables: %currentPoints%
+    score-removed: "&a%amount% points have been removed from the clan: %clan%." # Variables: %amount%, %clan%
+
+    score-set-correct-usage: "&cUsage: /clanadmin score set <Clan> <amount>"
+    score-set: "&a%amount% points have been set for the clan: %clan%." # Variables: %amount%, %clan%
